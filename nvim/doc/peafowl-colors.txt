@@ -1,0 +1,148 @@
+*peafowl-colors.txt*    Peafowl Colors - A jewel-toned colorscheme for Neovim
+
+==============================================================================
+CONTENTS                                            *peafowl-colors-contents*
+
+  1. Introduction .......................... |peafowl-colors-introduction|
+  2. Requirements .......................... |peafowl-colors-requirements|
+  3. Installation .......................... |peafowl-colors-installation|
+  4. Usage ................................. |peafowl-colors-usage|
+  5. Configuration ......................... |peafowl-colors-configuration|
+  6. Palette ............................... |peafowl-colors-palette|
+  7. Highlight Groups ...................... |peafowl-colors-highlights|
+
+==============================================================================
+1. INTRODUCTION                                 *peafowl-colors-introduction*
+
+Peafowl Colors is a light colorscheme for Neovim built around a jewel-toned
+palette. It provides highlight definitions for the editor UI, Vim syntax
+groups, Tree-sitter captures, and the built-in terminal emulator.
+
+The colorscheme is part of the broader Peafowl Colors project, which also
+ships themes for Ghostty and tmux.
+
+==============================================================================
+2. REQUIREMENTS                                 *peafowl-colors-requirements*
+
+- Neovim >= 0.9.0
+- A terminal emulator with true-color (24-bit) support
+
+==============================================================================
+3. INSTALLATION                                 *peafowl-colors-installation*
+
+With lazy.nvim: >lua
+  {
+    "peacock0803sz/peafowl-colors",
+    config = function()
+      require("peafowl_colors").setup({})
+      vim.cmd.colorscheme("peafowl")
+    end,
+  }
+<
+
+With other plugin managers, add the repository and call `setup()` before
+loading the colorscheme.
+
+==============================================================================
+4. USAGE                                               *peafowl-colors-usage*
+
+After installation, activate the colorscheme with: >vim
+  colorscheme peafowl
+<
+
+If you need to configure options, call `setup()` before loading: >lua
+  require("peafowl_colors").setup({
+    transparent = true,
+  })
+  vim.cmd.colorscheme("peafowl")
+<
+
+==============================================================================
+5. CONFIGURATION                               *peafowl-colors-configuration*
+
+Configure the colorscheme by passing a table to `setup()`.
+
+`require("peafowl_colors").setup(opts)`            *peafowl-colors.setup()*
+
+  `opts` is a table with the following fields:
+
+  `background`                              *peafowl-colors-opt-background*
+      Type: `"light"` | `"dark"`
+      Default: `"light"`
+
+      Sets 'background' when the colorscheme loads.
+
+  `italic_comment`                      *peafowl-colors-opt-italic_comment*
+      Type: `boolean`
+      Default: `true`
+
+      When `true`, comments are rendered in italic. Set to `false` to
+      disable italic styling on the `Comment` highlight group.
+
+  `transparent`                            *peafowl-colors-opt-transparent*
+      Type: `boolean`
+      Default: `false`
+
+      When `true`, removes background colors from UI chrome groups
+      (Normal, NormalNC, NormalFloat, SignColumn, StatusLine, TabLine,
+      WinBar, WinSeparator, etc.) so the terminal background shows through.
+
+  `extras`                                      *peafowl-colors-opt-extras*
+      Type: `HiTable` (table mapping group names to highlight definitions)
+      Default: `{}`
+
+      Additional highlight groups to apply on top of the built-in
+      definitions. Useful for plugin-specific overrides. Groups specified
+      here are re-applied via |vim.schedule()| so they persist even when
+      plugins set their own highlights on load.
+
+      Example: >lua
+        require("peafowl_colors").setup({
+          extras = {
+            TelescopeBorder = { values = { fg = { r = 102, g = 102, b = 102 } } },
+          },
+        })
+<
+
+==============================================================================
+6. PALETTE                                           *peafowl-colors-palette*
+
+The palette is defined in `lua/peafowl_colors/palettes.lua` using RGB values.
+
+  Name         Hex         Role ~
+  emerald      `#1F9E3A`     Keywords, repeats, specials
+  amber        `#CE9314`     Strings, constants, defines, types
+  amethyst     `#A322A3`     Booleans, cursor
+  sapphire     `#1F90E1`     Functions, storage classes
+  mastard      `#E3E322`     Preprocessor directives
+  scarlet      `#C9321A`     Numbers, conditionals, exceptions, errors
+
+  green        `#219C21`     Diff added
+  blue         `#1A49E9`     Operators, diff changed
+  red          `#9C2121`     Diff removed
+  yellow       `#E9E921`     Health warnings
+  navy         `#0A1A9B`     (reserved)
+
+  black        `#212121`     Identifiers, foreground text
+  white        `#EFEFEF`     Popup menus, cursor foreground
+  gray0        `#666666`     Line numbers, heading delimiters
+  gray1        `#8C8C8C`     Comments
+  gray2        `#999999`     (reserved)
+  gray3        `#CFCFCF`     NonText characters
+
+==============================================================================
+7. HIGHLIGHT GROUPS                               *peafowl-colors-highlights*
+
+The colorscheme defines highlights across four modules:
+
+  Module         Description ~
+  editor         Editor UI: cursor, line numbers, popups, status line, etc.
+  syntax         Vim built-in syntax groups (|group-name|), diff, markdown,
+                 rainbow brackets, CSV columns, health checks
+  treesitter     Tree-sitter captures (|treesitter-highlight-groups|) with
+                 language-specific overrides for Bash, CSS, HTML, Java,
+                 Lua, Python, Ruby, PHP, C/C++, C#, YAML, and others
+  terminal       Built-in terminal colors (|terminal-config|)
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
