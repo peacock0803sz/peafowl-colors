@@ -1,8 +1,8 @@
 # Peafowl Colors
 
-A colorscheme inspired by the plumage of the peafowl — emerald, sapphire, amethyst, and more.
+A colorscheme inspired by the plumage of the peafowl.
 
-![](https://img.p3ac0ck.net/figs/peafowl-colors.png)
+![](./assets/opengraph.png)
 
 ## Targets
 
